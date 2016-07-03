@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.smartonet.organization.dao.UserDAO">
+
+	<select id="getUserProfileByName" resultType="com.smartonet.organization.dto.UserProfile">
+		select
+			user_id,
+			name,
+			password,
+			status,
+			department_id
+		from
+			t_user
+		where
+			name = #{name}
+	</select>
+	
+	<select id="getUserById" resultType="com.smartonet.organization.entity.User">
+		select 
+			u.user_id,
+			u.name,
+			u.password,
+			u.phone,
+			u.email,
+			u.first_name,
+			u.middle_name,
+			u.last_name,
+			u.sex,
+			u.registration_time,
+			u.title,
+			u.status,
+			u.department_id,
+			dep.department_id "department.department_id",
+			dep.name "department.name",
+			dep.type "department.type",
+			dep.parent_id "department.parent_id"
+		from t_user u,t_department dep
+		where
+			u.department_id = dep.department_id
+			and userId = #{user_id}
+	</select>
+
+<!-- 	<update id="reduceNumber"> -->
+<!-- 		update  -->
+<!-- 			seckill -->
+<!-- 		set -->
+<!-- 			number = number -1  -->
+<!-- 		where seckill_id = #{secKillId} -->
+<!-- 		and start_time <![CDATA[ <= ]]> #{killTime} -->
+<!-- 		and end_time >= #{killTime} -->
+<!-- 		and number > 0 ; -->
+<!-- 	</update> -->
+	
+<!-- 	<select id="queryById" resultType="org.yang.entity.seckill.SecKill" parameterType="long"> -->
+<!-- 		select seckill_id,name,number,start_time,end_time,create_time -->
+<!-- 		from seckill -->
+<!-- 		where seckill_id = #{secKillId} -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="queryAll" resultType="org.yang.entity.seckill.SecKill"> -->
+<!-- 		select seckill_id,name,number,start_time,end_time,create_time -->
+<!-- 		from seckill -->
+<!-- 		order by create_time desc -->
+<!-- 		limit #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER} -->
+<!-- 	</select> -->
+</mapper>
